@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import { NativeBaseProvider } from 'native-base';
+import { NativeBaseProvider, Text } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import routes from './src/screens';
@@ -23,11 +23,14 @@ const App = () => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Tab.Navigator>
-          {routes.map((route) => (
-            <Tab.Screen {...route} />
-          ))}
-        </Tab.Navigator>
+        {/* TODO: Add loading component on fallback */}
+        <React.Suspense fallback={<Text>Loading...</Text>}>
+          <Tab.Navigator>
+            {routes.map((route) => (
+              <Tab.Screen {...route} />
+            ))}
+          </Tab.Navigator>
+        </React.Suspense>
       </NavigationContainer>
     </NativeBaseProvider>
   );
